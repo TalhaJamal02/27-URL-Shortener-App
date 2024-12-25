@@ -6,12 +6,10 @@ import { CopyIcon } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
 
-
-interface URLShortenerComponentProps { }
 const BITLY_API_URL = "https://api-ssl.bitly.com/v4/shorten";
 const BITLY_ACCESS_TOKEN = process.env.NEXT_PUBLIC_BITLY_ACCESS_TOKEN;
 
-const UrlShortener: React.FC<URLShortenerComponentProps> = () => {
+const UrlShortener: React.FC = () => {
   const [longUrl, setLongUrl] = useState<string>("");
   const [shortUrl, setShortUrl] = useState<string>("");
   const [error, setError] = useState<string>("");
@@ -35,8 +33,9 @@ const UrlShortener: React.FC<URLShortenerComponentProps> = () => {
         }
       );
       setShortUrl(response.data.link);
-    } catch (err) {
+    } catch (error) {
       setError("Failed to shorten the URL. Please try again.");
+      console.error(error);
     }
   };
 
@@ -99,5 +98,4 @@ const UrlShortener: React.FC<URLShortenerComponentProps> = () => {
   );
 };
 
-
-export default UrlShortener
+export default UrlShortener;
